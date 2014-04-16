@@ -1,36 +1,48 @@
-HOST: http://www.goaaaaogle.com/
+FORMAT: 1A
+HOST: http://www.goodfsdfsdagle.com
 
---- saadasd ---
+# ananas666
+Notes API is a *short texts saving* service similassssr to its physical paper presence on your table.
 
----
-Welcome to the our sample API documentation. All comments can be written in (support [Markdown](http://daringfireball.net/projects/markdown/syntax) syntax)
----
+# Group Notes
+Notes related resources of the **Notes API**
 
---
-Shopping Cart Resources
-The following is a section of resources related to the shopping cart
---
+## Notes Collection [/notes]
 
-List products added into your shopping-cart. (comment block again in Markdown)
-GET /shopping-cart
-< 200
-< Content-Type: application/json
-{ "items": [
-{ "url": "/shopping-cart/1", "product":"2ZY48XPZ", "quantity": 1, "name": "New socks", "price": 1.25 }
-] }
+### Create a Note [POST]
++ Request (application/json)
 
-Save new products in your shopping cart
-POST /shopping-cart
-> Content-Type: application/json
-{ "product":"1AB23ORM", "quantity": 2 }
-< 201
-< Content-Type: application/json
-{ "status": "created", "url": "/shopping-cart/2" }
+    + Headers
+        
+            testHeader1: 'testHeader1Val'
+            testHeader2: 'testHeader2Val'
+            
+    + Body 
+    
+            {         
+            "simpleKeyValueOK": "simpleKeyValueOK",
+            "simpleKeyValueNumberOK": 1,
+            "simpleKeyValueOKmiss": "simpleKeyValueOKmiss",
+            "keyWithObjectValueOK": {
+                "keyWithObjectValueOKnestedKey": "keyWithObjectValueOKnestedKey",
+                "keyWithObjectValueOKnestedKey2": "keyWithObjectValueOKnestedKey2"
+                },
+            "keyWithObjectValueFail": {
+                "keyWithObjectValueOKnestedKeyMiss": "keyWithObjectValueOKnestedKeyMiss",
+                "keyWithObjectValueOKnestedKey2": "keyWithObjectValueOKnestedKey2"
+                },
+            "keyWithObjectValueWrongTypeFail": {
+                "keyWithObjectValueOKnestedKeyMiss": "keyWithObjectValueOKnestedKeyMiss",
+                "keyWithObjectValueOKnestedKey2": "keyWithObjectValueOKnestedKey2"
+                },
+            "keyWithArrayValueOK": [1,2,3],
+            "keyWithArrayValueOK2": [1,2,3],
+            "keyWithArrayValueTypeFail": [1,2,3]
+            }
+            
+    
 
--- Payment Resources --
++ Response 201 (application/json)
 
-This resource allows you to submit payment information to process your *shopping cart* items
-POST /payment
-{ "cc": "12345678900", "cvc": "123", "expiry": "0112" }
-< 200
-{ "receipt": "/payment/receipt/1" }
+        { "id": 3, "title": "Buy cheese and bread for breakfast." }
+
