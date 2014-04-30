@@ -1,6 +1,6 @@
 FORMAT: 1A
 # RMS(one) API
-This section provides a listing of the supported RMS(one)® application programming interface (API). Remffember to prefix the base unique resource identifier (URI) to your API call.  
+This section provides a listing of the supported RMS(one)® application programming interface (API). Remember to prefix the base unique resource identifier (URI) to your API call.  
 
 # Group Authentication
 This section groups token resources.
@@ -846,32 +846,32 @@ A portfolio is a collection of contracts that are underwritten by the tenant or 
     
     ```js
         { 
-            "Count": "integer: total number of portfolios that exist"
+            "Count": "integer: total number of existing portfolios"
             "portfolios": [
                 {
-                    "AsOf: "string: date and time of latest portfolio version. The datetime is in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time.",
+                    "AsOf: "string: date and time of latest portfolio version in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time",
                     "Description": "string: portfolio description",
-                    "Id": "long: the portfolio object ID",
+                    "Id": "long: portfolio object ID",
                     "Name": "string: portfolio name",
                     "Owner": "integer: user ID of the creator",
-                    "SourceId": "string: the ID of the external system to which the portfolio is linked.",
-                    "URI": "string: unique resource identifier",
+                    "SourceId": "string: ID of the external system to which the portfolio is linked",
+                    "URI": "string: uniform resource identifier",
                     "Version": "number: portfolio version",
                     "AclTag": "string: Additional access control list",
                     "BuildingTotalInsuredValue": "double: total insured value of the building",
                     "BusinessInteruptionTotalInsuredValue": "double: total insured value for business interruption",
                     "ContentsTotalInsuredValue": "double: total insured value of the contents",
                     "ContractCount": "number: contract count",
-                    "Created": "string: date and time of creation in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "CreationFilter": "string: Creation filter string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
-                    "ExposedParty": "integer: Domain Data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
-                    "ExposedPartyName": "string: Name of the exposed party",
-                    "ExposureImportSet": "integer: If the portfolio is imported, this is the ID of the import set to which the portfolio belonged. Otherwise set to null.",
-                    "ImportDataSource": "string: Import data source",
+                    "Created": "string: date and time of creation in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "CreationFilter": "string: creation filter string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
+                    "ExposedParty": "integer: domain data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
+                    "ExposedPartyName": "string: name of the exposed party",
+                    "ExposureImportSet": "integer: ID of the import set to which the portfolio belonged if the portfolio is imported. Otherwise set to null.",
+                    "ImportDataSource": "string: import data source",
                     "IncludeMain": "boolean: paired with whatIfTagName. A value of false indicates that only contracts satisfying the whatIfTagName will be included in the portfolio. A value of true indicates that contracts satisfying the whatIfTagName will be included in the portfolio, and the main versions of other contracts not having that tag will be included in the portfolio.",
                     "IsDynamic": "boolean: determines whether the creation filter is dynamic (true) or static (false). Portfolios can have creation filters associated with them. Filters are static (unchanging) or dynamic (portfolio membership is updated automatically).",
                     "ReportingSegments": "string: null",
-                    "IsReference": "boolean: shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
+                    "IsReference": "boolean: determines whether the portfolio is shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
                     "RiskItemCount": "number: risk item count",
                     "TotalInsuredValue": "double: total insured value",
                     "WhatIfTagName": "string: all contracts satisfying this will be included in the portfolio. The tag is used to perform sensitivity tests and evaluate options for the purpose of making an optimal selection of risk."
@@ -897,12 +897,12 @@ Updates the specified portfolio.
         {
             "Description": "string",
             "Name": "string",
-            "SourceId": "string: the ID of the external system to which the portfolio is linked",
+            "SourceId": "string: ID of the external system to which the portfolio is linked",
             "CreationFilter": "string:  statement to define contract membership",
-            "ExposedParty": "integer: Domain Data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
+            "ExposedParty": "integer: domain data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
             "IncludeMain": "boolean: paired with whatIfTagName. A value of false indicates that only contracts satisfying the whatIfTagName will be included in the portfolio. A value of true indicates that contracts satisfying the whatIfTagName will be included in the portfolio, and the main versions of other contracts not having that tag will be included in the portfolio.",
             "IsDynamic": "boolean: determines whether the creation filter is dynamic (true) or static (false). Portfolios can have creation filters associated with them. Filters are static (unchanging) or dynamic (portfolio membership is updated automatically).",
-            "IsReference": "boolean: shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
+            "IsReference": "boolean: determines whether the postfolio is shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
             "ReportingSegments": "string: null",
             "WhatIfTagName": "string: all contracts satisfying this will be included in the portfolio. The tag is used to perform sensitivity tests and evaluate options for the purpose of making an optimal selection of risk."
         }
@@ -920,7 +920,7 @@ Deletes the selected portfolio instance.
 
         
 
-## portfolios [/v1/ExposureService/Portfolios/{?aclTag, asOf, buildingTotalInsuredValue, businessInterruptionTotalInsuredValue, contentsTotalInsuredValue, contractCount, contractCount, created, creationFilter, description, id, exposedParty, exposedPartyName, exposureImportSet,exposureTypeId, importDataSource, includeMain, isDynamic, isReference, limit, name, offset, owner, reportingSegments, riskItemCount, sourceId, totalInsuredValue, uri, version, whatIfTagName}]
+## portfolios [/v1/ExposureService/Portfolios/{?aclTag, asOf, buildingTotalInsuredValue, businessInterruptionTotalInsuredValue, contentsTotalInsuredValue, contractCount, created, creationFilter, description, id, exposedParty, exposedPartyName, exposureImportSet, importDataSource, includeMain, isDynamic, isReference, limit, name, offset, owner, reportingSegments, riskItemCount, sourceId, totalInsuredValue, uri, version, whatIfTagName}]
 
 ### GET portfolios [GET]
 Returns a list of portfolios. Supports standard filters, for example number of records to return per page and sorting.
@@ -959,58 +959,58 @@ Returns a list of portfolios. Supports standard filters, for example number of r
 
     ```js
         { 
-            "Count": "integer: total number of portfolios that exist"
+            "Count": "integer: total number of existing portfolios"
             "portfolios": [
                 {
-                    "AsOf: "string: date and time of latest portfolio version. The datetime is in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time.",
+                    "AsOf: "string: date and time of latest portfolio version in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time",
                     "Description": "string: portfolio description",
-                    "Id": "long: the portfolio object ID",
+                    "Id": "long: portfolio object ID",
                     "Name": "string: portfolio name",
                     "Owner": "integer: user ID of the creator",
-                    "SourceId": "string: the ID of the external system to which the portfolio is linked.",
-                    "URI": "string: unique resource identifier",
+                    "SourceId": "string: ID of the external system to which the portfolio is linked",
+                    "URI": "string: uniform resource identifier",
                     "Version": "number: portfolio version",
-                    "AclTag": "string: Additional access control list",
+                    "AclTag": "string: additional access control list",
                     "BuildingTotalInsuredValue": "double: total insured value of the building",
                     "BusinessInteruptionTotalInsuredValue": "double: total insured value for business interruption",
                     "ContentsTotalInsuredValue": "double: total insured value of the contents",
                     "ContractCount": "number: contract count",
-                    "Created": "string: date and time of creation in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "CreationFilter": "string: Creation filter string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
-                    "ExposedParty": "integer: Domain Data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
-                    "ExposedPartyName": "string: Name of the exposed party",
-                    "ExposureImportSet": "integer: If the portfolio is imported, this is the ID of the import set to which the portfolio belonged. Otherwise set to null.",
-                    "ImportDataSource": "string: Import data source",
+                    "Created": "string: date and time of creation in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "CreationFilter": "string: creation filter string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
+                    "ExposedParty": "integer: domain data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
+                    "ExposedPartyName": "string: exposed party name",
+                    "ExposureImportSet": "integer: ID of the import set to which the portfolio belonged if the portfolio is imported. Otherwise set to null.",
+                    "ImportDataSource": "string: import data source",
                     "IncludeMain": "boolean: paired with whatIfTagName. A value of false indicates that only contracts satisfying the whatIfTagName will be included in the portfolio. A value of true indicates that contracts satisfying the whatIfTagName will be included in the portfolio, and the main versions of other contracts not having that tag will be included in the portfolio.",
                     "IsDynamic": "boolean: determines whether the creation filter is dynamic (true) or static (false). Portfolios can have creation filters associated with them. Filters are static (unchanging) or dynamic (portfolio membership is updated automatically).",
                     "ReportingSegments": "string: null",
-                    "IsReference": "boolean: shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
+                    "IsReference": "boolean: determines whether the portfolio is shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
                     "RiskItemCount": "number: risk item count",
                     "TotalInsuredValue": "double: total insured value",
                     "WhatIfTagName": "string: all contracts satisfying this will be included in the portfolio. The tag is used to perform sensitivity tests and evaluate options for the purpose of making an optimal selection of risk."
                 },
                 {
-                    "Id": "number: the portfolio object ID",
-                    "URI": "string: unique resource identifier",
+                    "Id": "number: portfolio object ID",
+                    "URI": "string: uniform resource identifier",
                     "Name": "string",
                     "Description": "string",
-                    "SourceId": "string: the ID of the external system to which the portfolio is linked.",
+                    "SourceId": "string: ID of the external system to which the portfolio is linked",
                     "Version": "number: portfolio version",
                     "AclTag": "string: ACL tag",
                     "BuildingTotalInsuredValue": "double: total insured value of the building",
                     "BusinessInteruptionTotalInsuredValue": "double: total insured value for business interruption",
                     "ContentsTotalInsuredValue": "double: total insured value of the contents",
                     "ContractCount": "number: contract count",
-                    "AsOfDate": "string: datetime of the latest portfolio version. The datetime is in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
+                    "AsOfDate": "string: date and time of the latest portfolio version. The datetime is in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
                     "Owner": "number: user ID of the creator",
-                    "Created": "string: date and time of creation in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "CreationFilterRql": "string: Filter creation string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
-                    "ExposedParty": "number: Domain Data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
-                    "ExposedPartyName": "string: Name of the exposed party",
-                    "ExposureImportSet": "number: If the portfolio is imported, this is the ID of the import set to which the portfolio belonged. Otherwise set to null.",
-                    "ImportDataSource": "string: Import data source",
+                    "Created": "string: date and time of creation in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "CreationFilterRql": "string: filter creation string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
+                    "ExposedParty": "number: domain data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
+                    "ExposedPartyName": "string: name of the exposed party",
+                    "ExposureImportSet": "number: ID of the import set to which the portfolio belonged if the portfolio is imported. Otherwise set to null.",
+                    "ImportDataSource": "string: import data source",
                     "IsDynamic": "boolean: determines whether the creation filter is dynamic (true) or static (false). Portfolios can have creation filters associated with them. Filters are static (unchanging) or dynamic (portfolio membership is updated automatically).",
-                    "IsReference": "boolean: shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
+                    "IsReference": "boolean: determines whether the portfolio is shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
                     "WhatIfTagName": "string: all contracts satisfying this will be included in the portfolio. The tag is used to perform sensitivity tests and evaluate options for the purpose of making an optimal selection of risk.",
                     "IncludeMain": "boolean: paired with whatIfTagName. A value of false indicates that only contracts satisfying the whatIfTagName will be included in the portfolio. A value of true indicates that contracts satisfying the whatIfTagName will be included in the portfolio, and the main versions of other contracts not having that tag will be included in the portfolio.",
                     "RiskItemCount": "number: risk item count",
@@ -1018,27 +1018,27 @@ Returns a list of portfolios. Supports standard filters, for example number of r
                     "ReportingSegments": "string: null"
                 },
                 {
-                    "Id": "number: the portfolio object ID",
-                    "URI": "string: unique resource identifier",
+                    "Id": "number: portfolio object ID",
+                    "URI": "string: uniform resource identifier",
                     "Name": "string",
                     "Description": "string",
-                    "SourceId": "string: the ID of the external system to which the portfolio is linked.",
+                    "SourceId": "string: ID of the external system to which the portfolio is linked",
                     "Version": "number: portfolio version",
                     "AclTag": "string: ACL tag",
                     "BuildingTotalInsuredValue": "double: total insured value of the building",
                     "BusinessInteruptionTotalInsuredValue": "double: total insured value for business interruption",
                     "ContentsTotalInsuredValue": "double: total insured value of the contents",
                     "ContractCount": "number: contract count",
-                    "AsOfDate": "string: datetime of the latest portfolio version. The datetime is in  format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
+                    "AsOfDate": "string: date and time of the latest portfolio version in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
                     "Owner": "number: user ID of the creator",
-                    "Created": "string: date and time of creation in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "CreationFilterRql": "string: Filter creation string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
-                    "ExposedParty": "number: Domain Data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
-                    "ExposedPartyName": "string: Name of the exposed party",
-                    "ExposureImportSet": "number: If the portfolio is imported, this is the ID of the import set to which the portfolio belonged. Otherwise set to null.",
-                    "ImportDataSource": "string: Import data source",
+                    "Created": "string: date and time of creation in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "CreationFilterRql": "string: filter creation string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
+                    "ExposedParty": "number: domain data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
+                    "ExposedPartyName": "string: name of the exposed party",
+                    "ExposureImportSet": "number: ID of the import set to which the portfolio belonged if the portfolio is imported. Otherwise set to null.",
+                    "ImportDataSource": "string: import data source",
                     "IsDynamic": "boolean: determines whether the creation filter is dynamic (true) or static (false). Portfolios can have creation filters associated with them. Filters are static (unchanging) or dynamic (portfolio membership is updated automatically).",
-                    "IsReference": "boolean: shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
+                    "IsReference": "boolean: determines whether the portfolio is shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
                     "WhatIfTagName": "string: all contracts satisfying this will be included in the portfolio. The tag is used to perform sensitivity tests and evaluate options for the purpose of making an optimal selection of risk.",
                     "IncludeMain": "boolean: paired with whatIfTagName. A value of false indicates that only contracts satisfying the whatIfTagName will be included in the portfolio. A value of true indicates that contracts satisfying the whatIfTagName will be included in the portfolio, and the main versions of other contracts not having that tag will be included in the portfolio.",
                     "RiskItemCount": "number: risk item count",
@@ -1062,12 +1062,12 @@ Creates a portfolio.
         
             "Description": "string",
             "Name": "string",
-            "SourceId": "string: the ID of the external system to which the portfolio is linked",
-            "CreationFilter": "string: Creation filter string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
-            "ExposedParty": "integer: Domain Data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
+            "SourceId": "string: ID of the external system to which the portfolio is linked",
+            "CreationFilter": "string: creation filter string that you must specify to form the portfolio. All contracts satisfying the filter will be included.",
+            "ExposedParty": "integer: domain data code for the existing exposed party ID. Must match the exposed party for the account. The exposed party of a portfolio is the party who bears the financial risks associated with the member contracts and is likely to be the tenant or a subsidiary of the tenant.",
             "IncludeMain": "boolean: paired with whatIfTagName. A value of false indicates that only contracts satisfying the whatIfTagName will be included in the portfolio. A value of true indicates that contracts satisfying the whatIfTagName will be included in the portfolio, and the main versions of other contracts not having that tag will be included in the portfolio.",
             "IsDynamic": "boolean: determines whether the creation filter is dynamic (true) or static (false). Portfolios can have creation filters associated with them. Filters are static (unchanging) or dynamic (portfolio membership is updated automatically).",
-            "IsReference": "boolean: shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
+            "IsReference": "boolean: determines whether the portfolio is shown in the data library in a different location. A reference portfolio provides a baseline that tenants can use to evaluate other portfolios.",
             "ReportingSegments": "string: null",
             "WhatIfTagName": "string: all contracts satisfying this will be included in the portfolio. The tag is used to perform sensitivity tests and evaluate options for the purpose of making an optimal selection of risk."
         
