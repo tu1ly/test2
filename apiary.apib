@@ -1,13 +1,48 @@
 FORMAT: 1A
-HOST: http://www.google.com
+HOST: http://www.goodfsdfsdagle.com
 
-# Evil character API 
-http://unicodelookup.com/#32994/1
+# ananas666
+Notes API is a *short texts saving* servdsfddfdfdice similassssdddr to its pddddsdsdhysdfsdfdsical paper presence on your table.
 
+# Group Notes
+Notes related resources of the **Notes API**
 
-# GET /
-+ Response 200 (application/json)
+## Notes Collection [/notes]
 
-        {
-          "i_am_the_evil_character": " ♥"
-        }
+### Create a Note [POST]
++ Request (application/json)
+
+    + Headers
+        
+            testHeader1: 'testHeader1Val'
+            testHeader2: 'testHeader2Val'
+            
+    + Body 
+    
+            {         
+            "simpleKeyValueOK": "simpleKeyValueOK",
+            "simpleKeyValueNumberOK": 1,
+            "simpleKeyValueOKmiss": "simpleKeyValueOKmiss",
+            "keyWithObjectValueOK": {
+                "keyWithObjectValueOKnestedKey": "keyWithObjectValueOKnestedKey",
+                "keyWithObjectValueOKnestedKey2": "keyWithObjectValueOKnestedKey2"
+                },
+            "keyWithObjectValueFail": {
+                "keyWithObjectValueOKnestedKeyMiss": "keyWithObjectValueOKnestedKeyMiss",
+                "keyWithObjectValueOKnestedKey2": "keyWithObjectValueOKnestedKey2"
+                },
+            "keyWithObjectValueWrongTypeFail": {
+                "keyWithObjectValueOKnestedKeyMiss": "keyWithObjectValueOKnestedKeyMiss",
+                "keyWithObjectValueOKnestedKey2": "keyWithObjectValueOKnestedKey2"
+                },
+            "keyWithArrayValueOK": [1,2,3],
+            "keyWithArrayValueOK2": [1,2,3],
+            "keyWithArrayValueTypeFail": [1,2,3]
+            }
+            
+    
+
++ Response 201 (application/json)
+
+        { "id": 3, "title": "Buy cheese and bread for breakfast." }
+
