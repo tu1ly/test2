@@ -1,6 +1,6 @@
 FORMAT: 1A
 # RMS(one) API
-This section provides a listing of the supported RMS(one)® applisdsdcation programming interface (API). Remember to prefix the base unique resource identifier (URI) to your API call.  
+This section provides a listing of the supported RMS(one)® application programming interface (API). Remember to prefix the base unique resource identifier (URI) to your API call.  
 
 # Group Authentication
 This section groups token resources.
@@ -725,16 +725,16 @@ Activity types include import, geocoding, hazard retrieval, accumulation analyse
     
     ```js
         { 
-            "completed": "string: The datetime in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-            "id:"integer: Activity ID.",
-            "owner": "number: The user ID of the person who submitted the job.",
-            "priority": "string: Activity priority. Values are: Lowest, BelowNormal, Normal, AboveNormal, and Highest.",
-            "scheduled": "string: The datetime in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-            "started": "string: The datetime in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-            "status": "string: Domain Data code for Scheduled, Queued, Running, Completed, Failed, Canceled, Initializing, Canceling",
-            "submitted": "string: The datetime in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-            "type": "string: Domain Data code for the type of job. FileImport, EdmImport, RiskAnalysis, ExposureExport, RiskAnalysisExport, Query",
-            "uri": "string: URI",
+            "completed": "string: The datetime in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+            "id:"integer: Activity ID",
+            "owner": "number: user ID of the person who submitted the job",
+            "priority": "string: activity priority. Values are: Lowest, BelowNormal, Normal, AboveNormal, and Highest.",
+            "scheduled": "string: date and time of scheduled activity in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+            "started": "string: start date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+            "status": "string: domain data code for Scheduled, Queued, Running, Completed, Failed, Canceled, Initializing, and Canceling",
+            "submitted": "string: submittal date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+            "type": "string: domain data code for the type of job. Job types are: FileImport, EdmImport, RiskAnalysis, ExposureExport, RiskAnalysisExport, and Query.",
+            "uri": "string: uniform resource identifier"
         }
     ```
 
@@ -748,18 +748,18 @@ Returns the specified activity.
 ## activities [/services/v1/JobManagerService/activities/{?completed, limit, offset, owner, priority, scheduled, started, status, submitted, type}]
 
 ### GET activities [GET]
-Returns a list of activities. Supports standard filters, for example for pages and sorting.
+Returns a list of activities. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
-   + completed (string: datetime, optional)... Date and time in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time, when job was completed.    
+   + completed (string, optional)... Date and time in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time, when job was completed.    
    + limit (number, optional) ... Number of records to return per page.
    + offset (number, optional) ... Returns results starting with this record number (0-based).   
    + owner (number, optional) ... Job owner ID.
    + priority (string, optional) ... Activity priority. Values are: Lowest, BelowNormal, Normal, AboveNormal, and Highest.
-   + scheduled (string: datetime, optional)... Date and time in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time, when job was scheduled.
-   + started (string: datetime, optional)... Date and time in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time, when job was started.
+   + scheduled (string, optional)... Date and time in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time, when job was scheduled.
+   + started (string, optional)... Date and time in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time, when job was started.
    + status (string, optional) ... Job status.
-   + submitted (string: datetime, optional)... Date and time in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time, when job was submitted.
+   + submitted (string, optional)... Date and time in the format, YYYYMMDDThh:mm:ss:sssZ for UTC time, when job was submitted.
    + type (string, optional) ... Job type.
 
 
@@ -769,40 +769,40 @@ Returns a list of activities. Supports standard filters, for example for pages a
         {
             "activities": [
                 { 
-                    "completed": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "id:"integer: Activity ID.",
-                    "owner": "number: User ID of the person who submitted the job.",
-                    "priority": "string: Activity priority. Values are: Lowest, BelowNormal, Normal, AboveNormal, and Highest.",
-                    "scheduled": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "started": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "status": "string: Domain data code for Scheduled, Queued, Running, Completed, Failed, Canceled, Initializing, Canceling",
-                    "submitted": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "type": "string: Domain data code for the type of job. FileImport, EdmImport, RiskAnalysis, ExposureExport, RiskAnalysisExport, Query",
-                    "uri": "string: unique resource information",
+                    "completed": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "id:"integer: activity ID",
+                    "owner": "number: user ID of the person who submitted the job",
+                    "priority": "string: activity priority. Values are: Lowest, BelowNormal, Normal, AboveNormal, and Highest.",
+                    "scheduled": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "started": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "status": "string: domain data code for Scheduled, Queued, Running, Completed, Failed, Canceled, Initializing, and Canceling",
+                    "submitted": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "type": "string: domain data code for the type of job. Job types are: FileImport, EdmImport, RiskAnalysis, ExposureExport, RiskAnalysisExport, and Query.",
+                    "uri": "string: uniform resource identifier"
                 },
                 { 
-                    "completed": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "id:"integer: Activity ID.",
-                    "owner": "number: User ID of the person who submitted the job.",
-                    "priority": "string: Activity priority. Values are: Lowest, BelowNormal, Normal, AboveNormal, and Highest.",
-                    "scheduled": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "started": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "status": "string: Domain data code for Scheduled, Queued, Running, Completed, Failed, Canceled, Initializing, Canceling",
-                    "submitted": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "type": "string: Domain data code for the type of job. FileImport, EdmImport, RiskAnalysis, ExposureExport, RiskAnalysisExport, Query",
-                    "uri": "string: unique resource information",
+                    "completed": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "id:"integer: activity ID",
+                    "owner": "number: user ID of the person who submitted the job",
+                    "priority": "string: activity priority. Values are: Lowest, BelowNormal, Normal, AboveNormal, and Highest.",
+                    "scheduled": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "started": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "status": "string: domain data code for Scheduled, Queued, Running, Completed, Failed, Canceled, Initializing, and Canceling",
+                    "submitted": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "type": "string: domain data code for the type of job. Job types are: FileImport, EdmImport, RiskAnalysis, ExposureExport, RiskAnalysisExport, and Query.",
+                    "uri": "string: uniform resource identifier"
                 },
                 { 
-                    "completed": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "id:"integer: Activity ID.",
-                    "owner": "number: User ID of the person who submitted the job.",
-                    "priority": "string: Activity priority. Values are: Lowest, BelowNormal, Normal, AboveNormal, and Highest.",
-                    "scheduled": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "started": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "status": "string: Domain data code for Scheduled, Queued, Running, Completed, Failed, Canceled, Initializing, Canceling",
-                    "submitted": "string: Date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.",
-                    "type": "string: Domain data code for the type of job. FileImport, EdmImport, RiskAnalysis, ExposureExport, RiskAnalysisExport, Query",
-                    "uri": "string: unique resource information",
+                    "completed": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "id:"integer: activity ID",
+                    "owner": "number: user ID of the person who submitted the job",
+                    "priority": "string: activity priority. Values are: Lowest, BelowNormal, Normal, AboveNormal, and Highest.",
+                    "scheduled": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "started": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "status": "string: domain data code for Scheduled, Queued, Running, Completed, Failed, Canceled, Initializing, and Canceling",
+                    "submitted": "string: date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time",
+                    "type": "string: domain data code for the type of job. Job types are: FileImport, EdmImport, RiskAnalysis, ExposureExport, RiskAnalysisExport, and Query.",
+                    "uri": "string: uniform resource identifier"
                 },
             ]
         }
@@ -882,7 +882,7 @@ A portfolio is a collection of contracts that are underwritten by the tenant or 
     ```
 
 ### GET portfolio [GET]
-Returns the specified portfolio. Supports standard filters, for example for pages and sorting.
+Returns the specified portfolio. Supports standard filters, for example number of records to return per page and sorting.
 
 + Response 200
     
@@ -923,7 +923,7 @@ Deletes the selected portfolio instance.
 ## portfolios [/v1/ExposureService/Portfolios/{?aclTag, asOf, buildingTotalInsuredValue, businessInterruptionTotalInsuredValue, contentsTotalInsuredValue, contractCount, contractCount, created, creationFilter, description, id, exposedParty, exposedPartyName, exposureImportSet,exposureTypeId, importDataSource, includeMain, isDynamic, isReference, limit, name, offset, owner, reportingSegments, riskItemCount, sourceId, totalInsuredValue, uri, version, whatIfTagName}]
 
 ### GET portfolios [GET]
-Returns a list of portfolios. Supports standard filters, for example for pages and sorting.
+Returns a list of portfolios. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
    + aclTag (string, optional) ... Additional access control list (ACL).
@@ -947,7 +947,7 @@ Returns a list of portfolios. Supports standard filters, for example for pages a
    + name (string) ... Portfolio name.
    + offset (number, optional) ... Returns results starting with this record number (0-based).   
    + owner (integer, optional) ... Unique identifier for portfolio creator.  
-   + reportingSegments (string, optional) ... List of subset contracts specified in creationFilter.
+   + reportingSegments (string, optional) ... This parameter is not used at present. Therefore it is set to null.
    + riskItemCount (long, optional) ... Risk item count.
    + sourceId (string, optional) ... The ID of the external system to which the portfolio is linked.
    + totalInsuredValue (double, optional) ... Total insured value. 
@@ -1165,7 +1165,7 @@ Deletes the selected cedantExposure instance.
 ## cedantExposures [/services/v1/ExposureService/cedantExposures/{?aclTag, asOf, buildingTotalInsuredValue, businessInterruptionTotalInsuredValue, contentsTotalInsuredValue, contractCount, created, creationFilter, description, exposedParty, exposedPartyName, exposureImportSet, exposureTypeId, id, importDataSource, includeMain, isReference, limit, name, offset, owner, reportingSegments, riskItemCount, sourceId, totalInsuredValue, uri, version, whatIfTagName}]
 
 ### GET cedantExposures [GET]
-Returns a list of cedantExposures. Supports standard filters, for example for pages and sorting.
+Returns a list of cedantExposures. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
    + aclTag (string, optional) ... Additional access control list (ACL).
@@ -1188,7 +1188,7 @@ Returns a list of cedantExposures. Supports standard filters, for example for pa
    + name (string) ... Portfolio name.
    + offset (number, optional) ... Returns results starting with this record number (0-based). 
    + owner (integer, optional) ... Unique identifier for portfolio creator.
-   + reportingSegments (string, optional) ... List of subset contracts specified in creationFilter.   
+   + reportingSegments (string, optional) ... This parameter is not used at present. Therefore it is set to null.  
    + riskItemCount (long, optional) ... Risk item count.
    + sourceId (string, optional) ... The ID of the external system to which the portfolio is linked.
    + totalInsuredValue (double, optional) ... Total insured value. 
@@ -1379,7 +1379,7 @@ Updates the specified program.
 ## programs [/services/v1/ExposureService/programs/{?aclTag, asOf, description, id, isReinsurance, limit, name, offset, owner, sourceId, uri, version}]
 
 ### GET programs [GET]
-Returns a list of programs. Supports standard filters, for example for pages and sorting.
+Returns a list of programs. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
    + aclTag (string, optional)... Additional access control list.
@@ -2150,7 +2150,7 @@ Updates the specified contract.
 
 ## contracts [/services/v1/ExposureService/Contracts/{?accountId, accountingOrganizationPartyName, aclTag, agentParty, asOfDateTime, branchParty, brokerParty, claimAdjustmentDeductibleName, claimAdjustmentSublimitName, clonedExposureAsOfDateTime, clonedExposureId, cloneTypeId, contractCount, contractStatus, contractType, contractTypeIsInsurance, contractSubjects, costCenterParty, createDateTime, createUserId, currencyCode, description, expectedShares, exposedParty, expirationDateTime, exposureNumber, exposureTypeId, freeReinstatement, hubParty, id, importSet, inceptionDate, insuredParty, insurerParty, isCedantContract, isProRataTemporis, legalEntityParty, limit, lineOfBusiness, marketChannel, name, number, officeParty, offset, owner, paidReinstatement, premium, primaryAccordOccupancyName, producerParty, productId, productName, productAsOfDateTime, program, reinstatementsPremium, renewalDate, revisionLabel, riskItemCount, signedShares, underwriterPartyName, underwritingAccountParty, userDefContractType, whatIfName, writtenShares}]
 ### GET Contracts [GET]
-Returns a list of contracts. Supports standard filters, for example for pages and sorting. The contracts resource supports the following nested requests:
+Returns a list of contracts. Supports standard filters, for example number of records to return per page and sorting. The contracts resource supports the following nested requests:
 
 
 * GET Contracts by Portfolio
@@ -2888,7 +2888,7 @@ Returns a list of contracts. Supports standard filters, for example for pages an
 
 ## contracts [/services/v1/ExposureService/Portfolios/{id}/Contracts/{?accountingOrganizationPartyName, aclTag, agentParty, branchParty, brokerParty, claimAdjustmentDeductibleName, claimAdjustmentSublimitName, clonedExposureId, cloneTypeId, contractStatus, contractType, contractTypeIsInsurance, contractSubjects, costCenterParty, createDateTime, createUserId, currencyCode, expectedShares, exposedParty, expirationDateTime, exposureId, exposureNumber, freeReinstatement, hubParty, id, inceptionDate, insuredParty, insurerParty, isCedantContract, isProRataTemporis, legalEntityParty, limit, lineOfBusiness, marketChannel, name, officeParty, offset, paidReinstatement, premium, primaryAccordOccupancyName, producerParty, productId, productName, productAsOfDateTime, program, reinstatementsPremium, renewalDate, signedShares, underwriterPartyName, underwritingAccountParty, userDefContractType, whatIfName, writtenShares}]
 ### GET Contracts by Portfolio [GET]
-A nested contract request that returns a list of contracts by a specified portfolio. Supports standard filters, for example for pages and sorting.
+A nested contract request that returns a list of contracts by a specified portfolio. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
     + accountingOrganizationPartyName (string: id|name|uri, optional) ... Accounting organization.
@@ -3363,7 +3363,7 @@ A nested contract request that returns a list of contracts by a specified portfo
     
 ## contracts [/services/v1/ExposureService/CedantExposures/{id}/Contracts/{?accountingOrganizationPartyName, aclTag, agentParty, branchParty, brokerParty, claimAdjustmentDeductibleName, claimAdjustmentSublimitName, clonedExposureId, cloneTypeId, contractStatus, contractType, contractTypeIsInsurance, contractSubjects, costCenterParty, createDateTime, createUserId, currencyCode, expectedShares, exposedParty, expirationDateTime, exposureId, exposureNumber, freeReinstatement, hubParty, id, inceptionDate, insuredParty, insurerParty, isCedantContract, isProRataTemporis, legalEntityParty, limit, lineOfBusiness, marketChannel, name, officeParty, offset, paidReinstatement, premium, primaryAccordOccupancyName, producerParty, productId, productName, productAsOfDateTime, program, reinstatementsPremium, renewalDate, signedShares, underwriterPartyName, underwritingAccountParty, userDefContractType, whatIfName, writtenShares}]
 ### GET Contracts by CedantExposure [GET]
-A nested contract request that returns a list of contracts by a specified cedant exposure. Supports standard filters, for example for pages and sorting.
+A nested contract request that returns a list of contracts by a specified cedant exposure. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
     + accountingOrganizationPartyName (string: id|name|uri, optional) ... Accounting organization.
@@ -3836,7 +3836,7 @@ A nested contract request that returns a list of contracts by a specified cedant
 
 ## contracts [/services/v1/ExposureService/Programs/{id}/Contracts/{?accountingOrganizationPartyName, aclTag, agentParty, branchParty, brokerParty, claimAdjustmentDeductibleName, claimAdjustmentSublimitName, clonedExposureId, cloneTypeId, contractStatus, contractType, contractTypeIsInsurance, contractSubjects, costCenterParty, createDateTime, createUserId, currencyCode, expectedShares, exposedParty, expirationDateTime, exposureId, exposureNumber, freeReinstatement, hubParty, id, inceptionDate, insuredParty, insurerParty, isCedantContract, isProRataTemporis, legalEntityParty, limit, lineOfBusiness, marketChannel, name, officeParty, offset, paidReinstatement, premium, primaryAccordOccupancyName, producerParty, productId, productName, productAsOfDateTime, program, reinstatementsPremium, renewalDate, signedShares, underwriterPartyName, underwritingAccountParty, userDefContractType, whatIfName, writtenShares}]
 ### GET Contracts by Program [GET]
-A nested contract request that returns a list of contracts specified by a program. Supports standard filters, for example for pages and sorting.
+A nested contract request that returns a list of contracts specified by a program. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
     + accountingOrganizationPartyName (string: id|name|uri, optional) ... Accounting organization.
@@ -4652,7 +4652,7 @@ Updates the specified product.
 ## products [/services/v1/ExposureService/products/{?asOf, cdl, contractId, contractTypeId, createUserId, created, description, id, limit, name, offset, owner, productSchemeId, sourceId}]
 
 ### GET products [GET]
-Returns a list of products. Supports standard filters, for example for pages and sorting.
+Returns a list of products. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
    + asOf (optional, string) ... Date and time of the latest product version in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.
@@ -5147,7 +5147,7 @@ Returns the specified exposureImportSet.
 ## GET exposureImportSets [/services/v1/ImportService/exposureImportSets/{?completed, dataSchemaFormat, id, limit, name, offset, order, owner, sortField, sourceServerName, sourceDatabaseName, uri}]
 
 ### GET exposureImportSets [GET]
-Returns a list of exposureImportSets. Supports standard filters, for example for pages and sorting.
+Returns a list of exposureImportSets. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
    + completed (string: datetime, optional)... Completion date and time in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.
@@ -5216,7 +5216,7 @@ Returns a list of exposures created by an EDM import or file import.
 Exposures are always nested within the context of an exposureImportSet.
 
 ### GET exposures [GET]
-Returns a stream of exposures. Supports standard filters, for example for pages and sorting.
+Returns a stream of exposures. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters 
    + asOf (string, optional) ...  Date and time of the latest version in the format YYYYMMDDThh:mm:ss:sssZ for UTC time."
@@ -5783,7 +5783,7 @@ Loss metrics for risk analyses that have been run and contain stochastic losses.
 
 ### GET stochasticMetrics [GET]
 
-Returns loss metrics for risk analyses that contain stochastic losses. Supports standard filters, for example for pages and sorting.
+Returns loss metrics for risk analyses that contain stochastic losses. Supports standard filters, for example number of records to return per page and sorting.
 
 + Response 200
 
@@ -5793,7 +5793,7 @@ Returns loss metrics for risk analyses that contain stochastic losses. Supports 
 Perils/Regions available for riskAnalyses that contain stochastic losses.
 
 ### GET perilRegions [GET]
-Returns a list of available peril regions. Supports standard filters, for example for pages and sorting.
+Returns a list of available peril regions. Supports standard filters, for example number of records to return per page and sorting.
 
 + Response 200
 
@@ -5870,7 +5870,7 @@ Creates a riskAnalysisExport.
     ```            
 
 # Group Risk Items
-This section groups Exposure resources. Supports standard filters, for example for pages and sorting. The riskItem resource supports the following nested request:
+This section groups Exposure resources. Supports standard filters, for example number of records to return per page and sorting. The riskItem resource supports the following nested request:
 
 
 * GET riskItems from riskItemSchedules
@@ -9156,7 +9156,7 @@ Modifies the specified account.
 ## Accounts [/services/v1/ExposureService/accounts/{?created, description, exposedPartyId, exposedPartyName, id, importSetId, limit, name, number, offset, riskItemCount, sourceId}]
 
 ### GET accounts [GET]
-Returns a list of accounts. Supports standard filters, for example for pages and sorting.
+Returns a list of accounts. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
    + created (string, optional) ... Date and time when account was created in the format YYYYMMDDThh:mm:ss:sssZ for UTC time.
@@ -9282,7 +9282,7 @@ Modifies the specified subschedule.
 ## Subschedules [/services/v1/ExposureService/subschedules/{id}/{?cdlTag, contractSubjectId, filter, ids, limit, name, offset, subscheduleType}]
 
 ### GET subschedules [GET]
-Returns a list of subschedules. Supports standard filters, for example for pages and sorting.
+Returns a list of subschedules. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
    + cdlTag (string, optional) ... Contract definition language tag.
@@ -9389,7 +9389,7 @@ Deletes the selected riskItemSchedule instance.
 ## RiskItemSchedules [/services/v1/ExposureService/riskitemschedules/{?accountId, asOf, created, description, id, importSetId, limit, name, number, offset, owner, sourceId}]
 
 ### GET riskitemschedules [GET]
-Returns a list of subschedules. Supports standard filters, for example for pages and sorting. The riskItemSchedules resource supports the following nested request:
+Returns a list of subschedules. Supports standard filters, for example number of records to return per page and sorting. The riskItemSchedules resource supports the following nested request:
 
 
 * GET riskitemschedules from Accounts
@@ -9455,7 +9455,7 @@ Returns a list of subschedules. Supports standard filters, for example for pages
 ## RiskItemSchedules [/services/v1/ExposureService/Accounts/{id}/riskitemschedules/{?accountId, asOf,  created, description, id, importSetId, limit, name, number, offset, owner, sourceId}]
 
 ### GET riskitemschedules from Accounts [GET]
-Returns a list of subschedules. Supports standard filters, for example for pages and sorting.
+Returns a list of subschedules. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
    + accountId (integer) ... Exposed party's ID.
@@ -9618,7 +9618,7 @@ Updates the specified contract subject.
 
 
 ### GET ContractSubjects [GET]
-Returns a list of contract subjects. Supports standard filters, for example for pages and sorting.
+Returns a list of contract subjects. Supports standard filters, for example number of records to return per page and sorting.
 
 + Parameters
    + accountId (long, optional) ... Account ID.
