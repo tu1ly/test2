@@ -2,7 +2,7 @@ FORMAT: 1A
 HOST: http://www.google.com
 
 # aaaaa
-Notes API is a *short texts saving* service similar to dddits physical paper presence on your table.
+Notes API is a *short texts saving* service similar to its physical paper presence on your table.
 
 # Group Notes
 Notes related resources of the **Notes API**
@@ -19,8 +19,13 @@ Notes related resources of the **Notes API**
 
 ### Create a Note [POST]
 + Request (application/json)
+    + Header
+    
+            X-My-Header: The Value   
 
-        { "title": "Buy cheese and bread for breakfast." }
+    + Body
+    
+            { "title": "Buy cheese and bread for breakfast." }
 
 + Response 201 (application/json)
 
