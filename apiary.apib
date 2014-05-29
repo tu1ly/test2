@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: http://www.google.com
 
-# aaaaa
+# schema
 Notes API is a *short texts saving* service similar to its physical paper presence on your table.
 
 # Group Notes
@@ -9,23 +9,48 @@ Notes related resources of the **Notes API**
 
 ## Notes Collection [/notes]
 ### List all Notes [GET]
-+ Response (application/json)
++ Response 200 (application/json)
+    
+    + Body
 
-        [{
-          "id": 1, "title": "Jogging in park"
-        }, {
-          "id": 2, "title": "Pick-up posters from post-office"
-        }]
+            {
+            "api_key": "444",
+            "master": true,
+            "name": "OK",
+            "added": "xxx"
+            }
+    + Schema
+    
+            {
+            
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "title": "Property System, Authentication, GET /advertisers Request",
+            "type": "object",
+                "properties": {
+                    "api_key": {
+                            "description": "The authentication key identifier for the advertiser making the request via the API",
+                            "type": "string",
+                            "minLength": 8,
+                            "maxLength": 8,
+                            "required": true
+                        },
+                    "master": {
+                            "description": "The authentication key identifier for the advertiser making the request via the API",
+                            "type": "boolean"
+                        },
+                    "name": {
+                            "description": "The name of the new advertiser",
+                            "type": "string",
+                            "maxLength": 64,
+                            "required": true
+                        }
+                }
+            }
 
 ### Create a Note [POST]
 + Request (application/json)
-    + Header
-    
-            X-My-Header: The Value   
 
-    + Body
-    
-            { "title": "Buy cheese and bread for breakfast." }
+        { "title": "Buy cheese and bread for breakfast." }
 
 + Response 201 (application/json)
 
