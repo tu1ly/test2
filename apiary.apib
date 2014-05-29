@@ -1,77 +1,207 @@
 FORMAT: 1A
-HOST: http://www.google.com
+HOST: https://dev.fairmanager.de/
 
-# schema
-Notes API is a *short texts saving* service similar to its physical paper presence on your table.
+# FairManager
+The FairManager API is used for all communication between the backend services and the web or mobile applications.  
 
-# Group Notes
-Notes related resources of the **Notes API**
+# Group Person
+The API that focuses on interacting with instances of people registered on the system.
 
-## Notes Collection [/notes]
-### List all Notes [GET]
-+ Response 200 (application/json)
-    
-    + Body
+## Person [/api/person/{id}]
+A single Person instance. A Person usually represents an employee of the customer who uses FairManager.
 
-            {
-            "api_key": "444",
-            "master": true,
-            "name": "OK",
-            "added": "xxx"
-            }
-    + Schema
-    
-            {
-            
-            "$schema": "http://json-schema.org/draft-04/schema#",
-            "title": "Property System, Authentication, GET /advertisers Request",
-            "type": "object",
-                "properties": {
-                    "api_key": {
-                            "description": "The authentication key identifier for the advertiser making the request via the API",
-                            "type": "string",
-                            "minLength": 8,
-                            "maxLength": 8,
-                            "required": true
-                        },
-                    "master": {
-                            "description": "The authentication key identifier for the advertiser making the request via the API",
-                            "type": "boolean"
-                        },
-                    "name": {
-                            "description": "The name of the new advertiser",
-                            "type": "string",
-                            "maxLength": 64,
-                            "required": true
-                        }
-                }
-            }
+The Person resource has the following attributes:
 
-### Create a Note [POST]
-+ Request (application/json)
+- id
+- name
+- added
 
-        { "title": "Buy cheese and bread for breakfast." }
-
-+ Response 201 (application/json)
-
-        { "id": 3, "title": "Buy cheese and bread for breakfast." }
-
-## Note [/notes/{id}]
-A single Note object with all its details
+The attributes *id* and *added* are assigned by the FairManager API at the moment of creation.
 
 + Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+    + id (string) ... ID of the Person
+    
++ Model (application/json)
+    + Body
+    
+            {
+                "id" : "12345
+            }
 
-### Retrieve a Note [GET]
+### Retrieve a single Person [GET]
++ Response 200
+
+    [Person][]
+
+# Group Core API
+These API endpoints allow mainly for retrieval of information that makes up the core configuration of the FairManager instance.
+
+## Calendar Collection [/api/calendar]
+### Get available HTTP verbs [OPTIONS]
+This is usually only used by libraries to determine cross-origin capabilities.
++ Response 200
+
+        GET
++ Response 204
+    + Headers
+    
+            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+
+### List all calendar strings [GET]
+Allows you to retrieve the locale strings to be used for the calendar.
+- Response 200 (application/json)
+
+        {
+            "msg_days"   : ["Su","Mo","Tu","We","Th","Fr","Sa"],
+            "msg_months" : ["January","February","March","April","May","June","July","August","September","October","November","December"],
+            "msg_today"  : "Today"
+        }
+        
+## Application Configuration [/api/configuration]
+### Get available HTTP verbs [OPTIONS]
+This is usually only used by libraries to determine cross-origin capabilities.
++ Response 200
+
+        GET
++ Response 204
+    + Headers
+    
+            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+
+### Retrieve the configuration [GET]
+Retrieves the complete set of configuration directives that are used to control how the frontend application should behave.
 + Response 200 (application/json)
 
-    + Header
+        {
+            "days" : [
+                { 
+                    "date"  : "2014-04-01T00:00:00.000Z",
+                    "open"  : "2014-04-01T04:30:00.000Z",
+                    "close" : "2014-04-01T15:45:00.000Z"
+                }, {
+                    "date"  : "2014-04-02T00:00:00.000Z",
+                    "open"  : "2014-04-02T05:30:00.000Z",
+                    "close" : "2014-04-02T15:45:00.000Z"
+                },{
+                    "date"  : "2014-04-03T00:00:00.000Z",
+                    "open"  : "2014-04-03T06:30:00.000Z",
+                    "close" : "2014-04-03T15:45:00.000Z"
+                },{
+                    "date"  : "2014-04-04T00:00:00.000Z",
+                    "open"  : "2014-04-04T07:30:00.000Z",
+                    "close" : "2014-04-04T15:45:00.000Z"
+                },{
+                    "date"  : "2014-04-05T00:00:00.000Z",
+                    "open"  : "2014-04-05T08:30:00.000Z",
+                    "close" : "2014-04-05T15:45:00.000Z"
+                }
+            ],
+            "pager" : {
+                "messageMaxLength"  : 110,
+                "messageInterval"   : 120000,
+                "messageLifetime"   : 60000,
+                "autoResponseDelay" : 60000,
+                "displayDuration"   : 3600000,
+                "cleanupDelay"      : 3600000
+            },
+            "resources" : [
+                {
+                    "id"   : 0,
+                    "name" : "Room 1"
+                }, {
+                    "id"   : 1,
+                    "name" : "Room 2"
+                }, {
+                    "id"   : 2,
+                    "name" : "Room 3"
+                }, {
+                    "id"   : 3,
+                    "name" : "Room 4"
+                }, {
+                    "id"   : 4,
+                    "name" : "Room 5"
+                }
+            ],
+            "features" : {
+                "maxUsers"     : 1000,
+                "maxClients"   : 500,
+                "maxResources" : 50,
+                "maxRfid"      : 2
+            }
+        }
+        
+## Countries Collection [/api/countries]
+### Get available HTTP verbs [OPTIONS]
+This is usually only used by libraries to determine cross-origin capabilities.
++ Response 200
 
-            X-My-Header: The Value
-
-    + Body
-
-            { "id": 2, "title": "Pick-up posters from post-office" }
-
-### Remove a Note [DELETE]
+        GET
 + Response 204
+    + Headers
+    
+            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+
+### List all used countries [GET]
+Retrieves a list of all countries that have been set on user records.
+- Response 200 (application/json)
+
+        ["England","Deutschland","Germany"]
+        
+## Languages Collection [/api/languages]
+### Get available HTTP verbs [OPTIONS]
+This is usually only used by libraries to determine cross-origin capabilities.
++ Response 200
+
+        GET
++ Response 204
+    + Headers
+    
+            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+
+### List all available languages [GET]
+Retrieves a list of all languages known to the system. The languages are supplied as key-value pairs, with the language code being the key and a readable version of the language name (localized to the users locale) as the value.
+- Response 200 (application/json)
+
+        {
+            "de" : "German",
+            "en" : "English",
+            "fr" : "French",
+            "es" : "Spanish",
+            "it" : "Italian","nl":"Dutch","dk":"Danish","no":"Norwegian","se":"Swedish","ar":"Arabic","pl":"Polish","ru":"Russian","hu":"Hungarian","cz":"Czech","tr":"Turkish","in":"Hindi","cn":"Mandarin","hk":"Cantonese","el":"Greek","ro":"Romanian"}
+        
+## Tags Collection [/api/tags]
+### Get available HTTP verbs [OPTIONS]
+This is usually only used by libraries to determine cross-origin capabilities.
++ Response 200
+
+        GET
++ Response 204
+    + Headers
+    
+            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+
+### List all used tags [GET]
+Retrieves a list of all tags that have been set on user records.
+- Response 200 (application/json)
+
+        ["Geschäftsführer"]
+
+## Terminals Collection [/api/terminals]
+### Get available HTTP verbs [OPTIONS]
+This is usually only used by libraries to determine cross-origin capabilities.
++ Response 200
+
+        GET
++ Response 204
+    + Headers
+    
+            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+
+### List all Terimnals [GET]
++ Response 200 (application/json)
+
+        [{
+          "id"   : "info",
+          "name" : "OMNIKEY CardMan 5x21-CL 0",
+          "host" : "10.0.60.60"
+        }]
