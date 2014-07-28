@@ -1,207 +1,494 @@
 FORMAT: 1A
-HOST: https://dev.fairmanager.de/
+HOST: http://api.carwash.io
 
-# FairManager
-The FairManager API is used for all communication between the backend services and the web or mobile applications.  
+# Washjoy
+Washjoy API has been created for the mobile applications of the washjoy service.
 
-# Group Person
-The API that focuses on interacting with instances of people registered on the system.
+# Status code used
+```200``` successful request with body returned
 
-## Person [/api/person/{id}]
-A single Person instance. A Person usually represents an employee of the customer who uses FairManager.
+```201``` successful creation request with body returned
 
-The Person resource has the following attributes:
+```204``` successful request with nothing returned
 
-- id
-- name
-- added
+```400``` bad request (input, validations, parameters...)
 
-The attributes *id* and *added* are assigned by the FairManager API at the moment of creation.
+```401``` access denied (input, validations, parameters...)
+
+```404``` resource(s) not found
+
+# Authentification
+
+When using authenticated endpoints provide the necessary header
+
+```
+Authorization: Token token=ENTER_YOUR_TOKEN_PROVIDED_BY_LOGIN_HERE
+```
+
+# Errors outputs
+At least one key is returned when you get an error, "message" which is always a String.
+
+```
+{
+  "message": "Resource not found."
+}
+```
+
+Sometimes errors can be expressed with more details (validation), in that case, we return also an error key (object) with more information.
+
+```javascript
+{
+  "message": "Validation failed."
+  "errors": {
+    "email": [ "can't be blank", "is not an email" ]
+    "password": [ "can't be blank" ]
+  }
+}
+```
+
+# Group Users
+A user is a consumer who use the service, to manage his account, review his previous carwashs, and book new ones.
+
+## Users Collection [/users]
+### Create a User [POST]
 
 + Parameters
-    + id (string) ... ID of the Person
-    
-+ Model (application/json)
-    + Body
-    
+    + email (required, string, `benjamin@obvious3.com`) ... String `email` of the customer
+    + password (required, string, `123456`) ... String `password` of the customer
+    + password_confirmation (required, string, `123456`) ... String
+
++ Request (application/json)
+
+        {
+          "user": {
+            "email": "benjamin@obvious3.com",
+            "password": "123456",
+            "password_confirmation": "123456"
+          }
+        }
+
++ Response 201 (application/json; charset=utf-8)
+
+        {
+          "user": {
+            "id": 1,
+            "email": "benjamin@obvious3.com"
+          }
+        }
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+          "message": "Validation failed.",
+          "errors": {
+            "email": [ "can't be blank", "is not an email" ],
+            "password": [ "can't be blank" ]
+          }
+        }
+
+## User Session [/users/login]
+### Login a User [POST]
+
++ Parameters
+    + email (required, string, `benjamin@obvious3.com`) ... String `email` of the customer
+    + password (required, string, `123456`) ... String `password` of the customer
+
++ Request (application/json)
+
+        {
+          "user": {
+            "email": "benjamin@obvious3.com",
+            "password": "123456"
+          }
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          "user": {
+            "id": 1,
+            "email": "benjamin@obvious3.com",
+            "auth_token": "hexadecimalToken"
+          }
+        }
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+          "message": "Login and/or password incorrect."
+        }
+
+## User [/users/:id]
+### Retrieve a single User [GET]
+
++ Parameters
+  + embed (optional, string, `addresses,cars,bookings`) ... String that define which association to get (between addresses, cars, bookings and all)
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          "user": {
+            "id": 1,
+            "email": "benjamin@obvious3.com"
+          }
+        }
+
++ Request (application/json)
+
+        {
+          "embed": "cars,bookings"
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          "user": {
+            "id": 1,
+            "email": "benjamin@obvious3.com",
+            "cars": [
+              {
+                ...
+              },
+              {
+                ...
+              }
+            ],
+            "bookings": [
+              {
+                ...
+              },
+              {
+                ...
+              }
+            ]
+          }
+        }
+
+# Group Cars
+A car is a user resource. Many cars can belongs to a user. A car is also a required part of a Booking.
+
+## Cars Collection [/users/:id/cars]
+### Create a Car [POST]
+
++ Parameters
+    + name (required, string, `SLK`) ... String `name` of the customer's car
+    + description (required, string, `Black car, shiny and fast`) ... String `description` of the customer's car
+
++ Request (application/json)
+
+        {
+          "car": {
+            "name": "SLK",
+            "description": "Black car, shiny and fast"
+          }
+        }
+
++ Response 201 (application/json; charset=utf-8)
+
+        {
+          "car": {
+            "id": 1,
+            "name": "SLK",
+            "description": "Black car, shiny and fast",
+            "created_at": "2014-07-22T09:23:09.239Z",
+            "updated_at": "2014-07-22T09:23:09.239Z"
+          }
+        }
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+          "message": "Validation failed.",
+          "errors": {
+            "description": [ "Can't be blank" ]
+          }
+        }
+
+### List All User's Cars [GET]
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          cars: [
             {
-                "id" : "12345
-            }
-
-### Retrieve a single Person [GET]
-+ Response 200
-
-    [Person][]
-
-# Group Core API
-These API endpoints allow mainly for retrieval of information that makes up the core configuration of the FairManager instance.
-
-## Calendar Collection [/api/calendar]
-### Get available HTTP verbs [OPTIONS]
-This is usually only used by libraries to determine cross-origin capabilities.
-+ Response 200
-
-        GET
-+ Response 204
-    + Headers
-    
-            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
-
-### List all calendar strings [GET]
-Allows you to retrieve the locale strings to be used for the calendar.
-- Response 200 (application/json)
-
-        {
-            "msg_days"   : ["Su","Mo","Tu","We","Th","Fr","Sa"],
-            "msg_months" : ["January","February","March","April","May","June","July","August","September","October","November","December"],
-            "msg_today"  : "Today"
-        }
-        
-## Application Configuration [/api/configuration]
-### Get available HTTP verbs [OPTIONS]
-This is usually only used by libraries to determine cross-origin capabilities.
-+ Response 200
-
-        GET
-+ Response 204
-    + Headers
-    
-            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
-
-### Retrieve the configuration [GET]
-Retrieves the complete set of configuration directives that are used to control how the frontend application should behave.
-+ Response 200 (application/json)
-
-        {
-            "days" : [
-                { 
-                    "date"  : "2014-04-01T00:00:00.000Z",
-                    "open"  : "2014-04-01T04:30:00.000Z",
-                    "close" : "2014-04-01T15:45:00.000Z"
-                }, {
-                    "date"  : "2014-04-02T00:00:00.000Z",
-                    "open"  : "2014-04-02T05:30:00.000Z",
-                    "close" : "2014-04-02T15:45:00.000Z"
-                },{
-                    "date"  : "2014-04-03T00:00:00.000Z",
-                    "open"  : "2014-04-03T06:30:00.000Z",
-                    "close" : "2014-04-03T15:45:00.000Z"
-                },{
-                    "date"  : "2014-04-04T00:00:00.000Z",
-                    "open"  : "2014-04-04T07:30:00.000Z",
-                    "close" : "2014-04-04T15:45:00.000Z"
-                },{
-                    "date"  : "2014-04-05T00:00:00.000Z",
-                    "open"  : "2014-04-05T08:30:00.000Z",
-                    "close" : "2014-04-05T15:45:00.000Z"
-                }
-            ],
-            "pager" : {
-                "messageMaxLength"  : 110,
-                "messageInterval"   : 120000,
-                "messageLifetime"   : 60000,
-                "autoResponseDelay" : 60000,
-                "displayDuration"   : 3600000,
-                "cleanupDelay"      : 3600000
+              "id": 1,
+              "name": "SLK",
+              "description": "Black car, shiny and fast",
+              "created_at": "2014-07-22T09:23:09.239Z",
+              "updated_at": "2014-07-22T09:23:09.239Z"
             },
-            "resources" : [
-                {
-                    "id"   : 0,
-                    "name" : "Room 1"
-                }, {
-                    "id"   : 1,
-                    "name" : "Room 2"
-                }, {
-                    "id"   : 2,
-                    "name" : "Room 3"
-                }, {
-                    "id"   : 3,
-                    "name" : "Room 4"
-                }, {
-                    "id"   : 4,
-                    "name" : "Room 5"
-                }
-            ],
-            "features" : {
-                "maxUsers"     : 1000,
-                "maxClients"   : 500,
-                "maxResources" : 50,
-                "maxRfid"      : 2
+            {
+              "id": 2,
+              "name": "Aston Martin",
+              "description": "Only for the weekend bibibiaaatch",
+              "created_at": "2014-07-22T09:23:09.239Z",
+              "updated_at": "2014-07-22T09:23:09.239Z"
             }
+          ]
         }
-        
-## Countries Collection [/api/countries]
-### Get available HTTP verbs [OPTIONS]
-This is usually only used by libraries to determine cross-origin capabilities.
-+ Response 200
 
-        GET
-+ Response 204
-    + Headers
-    
-            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+## Car [/cars/:id]
+### Update a Car [PATCH]
 
-### List all used countries [GET]
-Retrieves a list of all countries that have been set on user records.
-- Response 200 (application/json)
-
-        ["England","Deutschland","Germany"]
-        
-## Languages Collection [/api/languages]
-### Get available HTTP verbs [OPTIONS]
-This is usually only used by libraries to determine cross-origin capabilities.
-+ Response 200
-
-        GET
-+ Response 204
-    + Headers
-    
-            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
-
-### List all available languages [GET]
-Retrieves a list of all languages known to the system. The languages are supplied as key-value pairs, with the language code being the key and a readable version of the language name (localized to the users locale) as the value.
-- Response 200 (application/json)
++ Request (application/json)
 
         {
-            "de" : "German",
-            "en" : "English",
-            "fr" : "French",
-            "es" : "Spanish",
-            "it" : "Italian","nl":"Dutch","dk":"Danish","no":"Norwegian","se":"Swedish","ar":"Arabic","pl":"Polish","ru":"Russian","hu":"Hungarian","cz":"Czech","tr":"Turkish","in":"Hindi","cn":"Mandarin","hk":"Cantonese","el":"Greek","ro":"Romanian"}
-        
-## Tags Collection [/api/tags]
-### Get available HTTP verbs [OPTIONS]
-This is usually only used by libraries to determine cross-origin capabilities.
-+ Response 200
+          "car": {
+            "name": "Ferrari",
+            "description": "Because now, I'm rich"
+          }
+        }
 
-        GET
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          "car": {
+            "id": 1,
+            "name": "Ferrari",
+            "description": "Because now, I'm rich",
+            "created_at": "2014-07-22T09:23:09.239Z",
+            "updated_at": "2014-07-23T09:23:09.239Z"
+          }
+        }
+
++ Response 404 (application/json; charset=utf-8)
+
+        {
+          "message": "This resource has not been found"
+        }
+
+### Delete a Car [DELETE]
+
++ Response 404 (application/json; charset=utf-8)
+
+        {
+          "message": "This resource has not been found"
+        }
+
+# Group Addresses
+An address is a user resource. Many addresses can belongs to a user. A car is also a required part of a Booking.
+
+## Addresses Collection [/users/:id/addresses]
+### Create an Address [POST]
+
++ Parameters
+    + name (required, string, `Home`) ... Name of the customer's address
+    + full_address (required, string, `4242 Whitworth Drive`) ... Full address of the customer
+
++ Request (application/json)
+
+        {
+          "address": {
+            "name": "Home",
+            "full_address": "4242 Whitworth Drive"
+          }
+        }
+
++ Response 201 (application/json; charset=utf-8)
+
+        {
+          "address": {
+            "id": 1,
+            "name": "Home",
+            "full_address": "4242 Whitworth Drive",
+            "created_at": "2014-07-22T09:23:09.239Z",
+            "updated_at": "2014-07-22T09:23:09.239Z"
+          }
+        }
+
++ Request (application/json)
+
+        {
+          "address": {
+            "name": "Home"
+          }
+        }
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+          "message": "Validation failed.",
+          "errors": {
+            "full_address": [ "Can't be blank "]
+          }
+        }
+
+### List All User's Addresses [GET]
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          addresses: [
+            {
+              "id": 1,
+              "name": "Home",
+              "full_address": "4242 Whitworth Drive",
+              "created_at": "2014-07-22T09:23:09.239Z",
+              "updated_at": "2014-07-22T09:23:09.239Z"
+            },
+            {
+              "id": "2"
+              "name": "Work",
+              "full_address": "1010 Wilshire Blvd.",
+              "created_at": "2014-07-22T09:23:09.239Z",
+              "updated_at": "2014-07-22T09:23:09.239Z"
+            }
+          ]
+        }
+
+## Address [/addresses/:id]
+### Update an Address [PATCH]
+
++ Request (application/json)
+
+        {
+          "address": {
+            "name": "Client",
+            "full_address": "4284 Hollywood Boulevard"
+          }
+        }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          "address": {
+            "id": 1,
+            "name": "Client",
+            "full_address": "4284 Hollywood Boulevard",
+            "created_at": "2014-07-22T09:23:09.239Z",
+            "updated_at": "2014-07-22T09:23:09.239Z"
+          }
+        }
+
++ Response 404 (application/json; charset=utf-8)
+
+        {
+          "message": "This resource has not been found"
+        }
+
+
+### Delete an Address [DELETE]
+
 + Response 204
-    + Headers
-    
-            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
 
-### List all used tags [GET]
-Retrieves a list of all tags that have been set on user records.
-- Response 200 (application/json)
++ Response 404 (application/json; charset=utf-8)
 
-        ["Geschäftsführer"]
+        {
+          "message": "This resource has not been found"
+        }
 
-## Terminals Collection [/api/terminals]
-### Get available HTTP verbs [OPTIONS]
-This is usually only used by libraries to determine cross-origin capabilities.
-+ Response 200
+# Group Packs
+A pack is an wash package that customer can buy. It is a part of a Booking
 
-        GET
-+ Response 204
-    + Headers
-    
-            Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+Calls to packs endpoints are public, no need for authentification here.
 
-### List all Terimnals [GET]
-+ Response 200 (application/json)
+## Packs Collection [/packs]
+### List All Packs [GET]
 
-        [{
-          "id"   : "info",
-          "name" : "OMNIKEY CardMan 5x21-CL 0",
-          "host" : "10.0.60.60"
-        }]
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          packs: [
+            {
+              "id": 1,
+              "name": "Basic wash",
+              "description": "This is an exterior wash",
+              "price": "19.99"
+            },
+            {
+              "id": "2"
+              "name": "Super wash",
+              "description": "This is an full interior + exterior wash",
+              "price": "49.99"
+            }
+          ]
+        }
+
+## Pack Item [/packs/:id]
+### Retrieve a single Pack [GET]
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          pack: {
+              "id": 1,
+              "name": "Basic wash",
+              "description": "This is an exterior wash",
+              "price": "19.99"
+          }
+        }
+
++ Response 404 (application/json; charset=utf-8)
+
+        {
+          "message": "This resource has not been found"
+        }
+
+# Group Bookings
+A booking is the entity that represents an order from a customer.
+
+## Bookings Collection [/users/:id/bookings]
+### Create a Booking [POST]
+
++ Parameters
+    + car_id (required, integer, `1`) ... Identifier of the car the customer want to associate to the booking
+    + address_id (required, integer, `1`) ... Identifier of the address the customer want to associate to the booking
+    + pack_id (required, integer, `42`) ... Identifier of the pack the customer want to purchase
+    + price (required, float, `29.99`) ... Frozen price of the pack at the time of the booking
+    + date_due (required, datetime, `2015/05/17`) ... Date where the service will take place
+
++ Request (application/json)
+
+        {
+          "booking": {
+            "car_id": 1,
+            "address_id": 1,
+            "pack_id": 1,
+            "price": 29.99,
+            "date_due": "2015/05/17"
+          }
+        }
+
++ Response 201 (application/json; charset=utf-8)
+
+        {
+          "booking": {
+            "id": 1
+          }
+        }
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+          "message": "Validation failed.",
+          "errors": {
+            "price": [ "Can't be blank" ]
+            "pack_id": [ "Can't be blank" ]
+          }
+        }
+
+### List All User's Bookings [GET]
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+          "bookings" : [
+            {
+              "car_id": 1,
+              "address_id": 1,
+              "pack_id": 1,
+              "price": 29.99,
+              "date_due": "2014-07-22T09:23:09.239Z",
+              "status": "done"
+            },
+            {
+              "car_id": 1,
+              "address_id": 2,
+              "pack_id": 2,
+              "price": 49.99,
+              "date_due": "2014-07-22T09:23:09.239Z",
+              "status": "created"
+            }
+          ]
+        }
+vv
